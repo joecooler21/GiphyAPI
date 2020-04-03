@@ -1,5 +1,7 @@
 img {
     padding: 5px;
+    height: 150px;
+    width: auto;
 }
 
 button {
