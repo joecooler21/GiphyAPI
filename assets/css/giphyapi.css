@@ -1,7 +1,15 @@
 img {
-    padding: 5px;
-    height: 150px;
-    width: auto;
+    padding: 3px;
+    border-style: solid;
+    border-width: 7px;
+    border-color: green;
+    margin: 2px;
+    height: 175px;
+    width: 185px;
+}
+
+.label {
+    text-align: center;
 }
 
 button {
@@ -9,4 +17,20 @@ button {
     margin-right: 5px;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.navbar {
+    justify-content: center;
+
+}
+
+#button-container {
+    display: flex;
+    justify-content: center;
+}
+
+body {
+
+    background-color: white;
+
 }

@@ -75,14 +75,15 @@ function apiQuery(searchData) {
             var newElement = document.createElement("img");
             var imgContainer = document.getElementById("image-container");
 
+            //create a new row for every 5 pictures and place images in columns
+
             if (i === 0 || i === 5) {
 
                 var row = newRow(imgContainer);
-                var col = newCol(row);
             }
 
+            var col = newCol(row);
             var newImg = col.appendChild(newElement);
-
             newImg.setAttribute("src", url);
             newImg.setAttribute("data-state", "still");
             newImg.setAttribute("data-still", url);
@@ -90,8 +91,7 @@ function apiQuery(searchData) {
             var newLabel = document.createElement("div");
             newLabel = col.appendChild(newLabel);
             newLabel.setAttribute("class", "label");
-            newLabel.textContent = "Rating: " + response.data[i].rating;
-
+            newLabel.textContent = "Rating: " + response.data[i].rating.toUpperCase();
             newImg.addEventListener("click", function () {
                 var state = this.getAttribute("data-state");
                 if (state === "still") {
@@ -102,20 +102,26 @@ function apiQuery(searchData) {
                     this.setAttribute("data-state", "still");
                 }
             });
+
+
+
+
+
+
         }
 
     });
 }
 
 function newRow(parent) {
-    var row = document.createElement("div");
+    var row = document.createElement("row");
     row.setAttribute("class", "row");
     return (parent.appendChild(row));
 }
 
 function newCol(parent) {
     var col = document.createElement("div");
-    col.setAttribute("class", "col col-lg-12 col-md-12 col-sm-12");
+    col.setAttribute("class", "col-2.4");
     return (parent.appendChild(col));
 }
 
