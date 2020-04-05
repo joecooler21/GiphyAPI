@@ -1,4 +1,17 @@
-var topics = ["retro gaming", "console gaming", "pc gaming"];
+var topics = [{
+    title: "Retro Gaming",
+    clicks: 0,
+},
+{
+    title: "Console Gaming",
+    clicks: 0,
+},
+{
+    title: "PC Gaming",
+    clicks: 0,
+}
+
+]
 
 var searchButton = document.getElementById("search-button");
 
@@ -6,15 +19,17 @@ var searchButton = document.getElementById("search-button");
 searchButton.addEventListener("click", function (e) {
     e.preventDefault();
     var searchText = document.getElementById("text").value;
+    for (i = 0; i < topics.length; i++) {
+        if (topics[i].title.toLowerCase() === searchText.toLowerCase()) {
+            return;
+        }
+    }
     if (searchText === "")
         return;
-    /*var newButton = addButton(searchText);
-    apiQuery(searchText);
-    newButton.addEventListener("click", function () {
-        apiQuery(searchText);
-    });*/
-    apiQuery(searchText);
-    topics.push(searchText);
+    apiQuery(searchText, 0);
+    // create new topic object and push to array
+    var newObj = { title: searchText, clicks: 1 };
+    topics.push(newObj);
     addTopics();
 });
 
@@ -39,11 +54,20 @@ addTopics();
 function addTopics() {
     clearTags();
     for (i = 0; i < topics.length; i++) {
-        var newButton = addButton(topics[i]);
+        var newButton = addButton(topics[i].title);
+        newButton.setAttribute("id", i);
         newButton.addEventListener("click", function (e) {
             e.preventDefault();
+            var index = this.getAttribute("id");
+            // increment clicks key for this topic when button is pressed
+            topics[index].clicks++;
+            if (topics[index].clicks === 1) {
+                var offset = 0;
+            } else {
+                var offset = topics[index].clicks * 10;
+            }
             var searchData = this.getAttribute("search-data");
-            apiQuery(searchData);
+            apiQuery(searchData, offset);
         });
     }
 }
@@ -60,9 +84,9 @@ function addButton(searchData) {
 }
 
 // make ajax query to Giphy based on search data
-function apiQuery(searchData) {
+function apiQuery(searchData, offset) {
 
-    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=39kz56FNdt5E2SH1WY36r7pAsT5c7u6Q&q=" + searchData + "&limit=10&offset=0&lang=en";
+    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=39kz56FNdt5E2SH1WY36r7pAsT5c7u6Q&q=" + searchData + "&limit=10&offset=" + offset + "&lang=en";
 
     $.ajax({
         url: queryURL,
@@ -92,6 +116,7 @@ function apiQuery(searchData) {
             newLabel = col.appendChild(newLabel);
             newLabel.setAttribute("class", "label");
             newLabel.textContent = "Rating: " + response.data[i].rating.toUpperCase();
+            // when user clicks on image, check to see current state and set accordingly
             newImg.addEventListener("click", function () {
                 var state = this.getAttribute("data-state");
                 if (state === "still") {
@@ -102,12 +127,6 @@ function apiQuery(searchData) {
                     this.setAttribute("data-state", "still");
                 }
             });
-
-
-
-
-
-
         }
 
     });
