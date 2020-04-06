@@ -56,6 +56,9 @@ function addTopics() {
     for (i = 0; i < topics.length; i++) {
         var newButton = addButton(topics[i].title);
         newButton.setAttribute("id", i);
+        newButton.addEventListener("mouseover", function (e) {
+            // mouse over code here
+        });
         newButton.addEventListener("click", function (e) {
             e.preventDefault();
             var index = this.getAttribute("id");
@@ -78,6 +81,7 @@ function addButton(searchData) {
     var btnContainer = document.getElementById("button-container");
     var newElement = document.createElement("button");
     var newButton = btnContainer.appendChild(newElement);
+    newButton.setAttribute("class", "btn btn btn-dark my-2 my-sm-0");
     newButton.setAttribute("search-data", searchData);
     newButton.textContent = searchData;
     return newButton;
@@ -116,6 +120,15 @@ function apiQuery(searchData, offset) {
             newLabel = col.appendChild(newLabel);
             newLabel.setAttribute("class", "label");
             newLabel.textContent = "Rating: " + response.data[i].rating.toUpperCase();
+            var copyLink = document.createElement("button");
+            copyLink = newLabel.appendChild(copyLink);
+            copyLink.setAttribute("type", "button");
+            copyLink.setAttribute("class", "btn btn-dark my-2 my-sm-0");
+            // "assets/icons/clipboard-data.svg"
+            copyLink.textContent = "Copy URL";
+            /*var icon = document.createElement("img");
+            icon.setAttribute("src", "assets/icons/clipboard-data.svg");
+            copyLink.appendChild(icon);*/
             // when user clicks on image, check to see current state and set accordingly
             newImg.addEventListener("click", function () {
                 var state = this.getAttribute("data-state");
@@ -146,6 +159,9 @@ function newCol(parent) {
 
 // empty images container
 function clearImages() {
+    for (i = 0; i < topics.length; i++) {
+        topics[i].clicks = 0;
+    }
     var parent = document.getElementById("image-container");
     while (parent.firstChild) {
         parent.firstChild.remove();
