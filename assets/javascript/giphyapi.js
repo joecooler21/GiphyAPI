@@ -125,7 +125,7 @@ function apiQuery(searchData, offset) {
             copyLink.setAttribute("type", "button");
             copyLink.setAttribute("class", "copy-link-button btn btn-dark my-2 my-sm-0");
             copyLink.setAttribute("data-src", response.data[i].images.original.url);
-            
+
             copyLink.addEventListener("click", function () {
                 // copy URL to clipboard
                 var dummy = document.createElement("textarea");
@@ -135,13 +135,11 @@ function apiQuery(searchData, offset) {
                 document.execCommand("copy");
                 document.querySelector("body").removeChild(dummy);
             });
-            // "assets/icons/clipboard-data.svg"
-            
-            //copyLink.textContent = "Copy";
+
             var icon = document.createElement("i");
             icon = copyLink.appendChild(icon);
             icon.setAttribute("class", "fa fa-clipboard");
-            
+
             // when user clicks on image, check to see current state and set accordingly
             newImg.addEventListener("click", function () {
                 var state = this.getAttribute("data-state");
