@@ -32,6 +32,7 @@ margin-top: 10px;
     background-color: #353a40;
     margin-left: 2px;
     margin-right: 2px;
+    font-size: 15px;
 }
 
 button {
@@ -56,4 +57,8 @@ button {
 #image-container {
     margin-left: 20%;
     margin-top: 20px;
+}
+
+.copy-link-button {
+    font-size: 20px;
 }
